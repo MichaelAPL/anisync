@@ -1,0 +1,8 @@
+{
+  "html-css-class-completion.enableEmmetSupport": true,
+  "html.suggest.html5": true,
+  "editor.linkedEditing": true,
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "html.autoClosingTags": false,
+  "html.customData": []
+}

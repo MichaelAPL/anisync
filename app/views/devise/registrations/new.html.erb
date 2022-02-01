@@ -1,0 +1,53 @@
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="columns">
+        <div class="column is-5-fullhd is-offset-3">
+          <h1 class="title">Sign Up</h1>
+          <h3 class="subtitle">First, lets create your AniSync account</h3>
+            <%= turbo_frame_tag "post" do %>
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource, data: { turbo: false } %>
+                <div class="field">
+                  <div class="control">
+                    <%= f.text_field :name, autofocus: true, class: "input is-medium" , placeholder: "Your User Name" %>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email" , class: "input is-medium" ,
+                      placeholder: "Email" %>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <%= f.password_field :password, autocomplete: "new-password" , class: "input is-medium" ,
+                      placeholder: "Password (6 chars minimum)" %>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "input is-medium" ,
+                      placeholder: "Confirm Password" %>
+                  </div>
+                </div>
+                <div class="actions">
+                  <%= f.submit class: "button is-block is-primary is-fullwidth is-medium" %>
+                </div>
+              <% end %>
+            <% end %>            
+            <div class="columns">
+              <div class="column">
+                <br>
+                <p><%= render "devise/shared/links" %></p>                
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>      
+  </div>
+</section>
+
+
+
+
