@@ -1,0 +1,56 @@
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        Authorize your primary provider 
+      </h1>
+      <h3 class="subtitle">
+        Your primary provider will be used as a base for syncing all of your lists (You can change it later).
+      </h3>
+      <h3 class="subtitle">
+        Grant us access to your anime catalog provider so we can sync your lists.
+      </h3>
+      <div class="columns">
+        <div class="column is-4 is-offset-2">
+          <div class="card has-text-centered">
+            <div class="card-image">
+              <figure class="image is-2by1">
+                <img src="https://img.anime2you.de/2021/02/myanimelist-logo.jpg" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">MyAnimeList.net</p>
+                </div>
+              </div>        
+              <div class="content">
+                <%= button_to "Authorize MyAnimeList" , "/auth/my_anime_list/" , class: "button is-link is-outlined", method: :post, data: { turbo: "false" } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="card has-text-centered">
+            <div class="card-image">
+              <figure class="image is-2by1">
+                <img src="https://play-lh.googleusercontent.com/BqG96npqowFaxpZYtSH7RowE0ECiFXm8Vd0aoxLcJhw-p4W9SMC4aqheQrCtpruMwNc" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">Kitsu.io</p>
+                </div>
+              </div>
+              <div class="content">
+                <%#= button_to "Log in" , "/auth/my_anime_list/" , method: :post, data: { turbo: 'false' } %>
+                <a class="button">Authorize Kitsu</a>
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>      
+    </div>
+  </div>
+</section>

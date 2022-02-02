@@ -30,6 +30,7 @@ The purpose of this project is to provide a user-friendly interface to synchroni
 | user_name       | string      |
 | access_token    | string      |
 | refresh_token   | string      |
+| is_primary      | boolean     |
 
 ## List Entry
 
@@ -57,6 +58,7 @@ The purpose of this project is to provide a user-friendly interface to synchroni
 | emission_status | string      |
 | image_url       | string      |
 | streaming_urls  | string      |
+| mal_raw         | string      |
 
 ## Streaming Platform
 

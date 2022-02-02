@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get "/authentication_providers", to: "authentication_providers#select_providers"
+  get "/auth/:provider/callback", to: "authentication_providers#create"
+
+  get "/dashboard", to: "dashboard#index"
+  get "/users/sign_out", to: "application#user_sign_out"
   root to: "home#index"
 end

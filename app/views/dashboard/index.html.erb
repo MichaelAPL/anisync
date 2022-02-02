@@ -1,0 +1,13 @@
+<p><%= current_user.username %></p>
+
+<br>
+
+<p>Welcome to your dashboard!</p>
+
+<br>
+
+<% if current_user %>
+  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: { turbo: "false" } %> 
+<% else %>
+  <% redirect_to root_path %>
+<% end %>

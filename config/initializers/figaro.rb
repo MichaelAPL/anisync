@@ -1,0 +1,1 @@
+Figaro.require_keys("mal_client_id", "mal_client_secret")
