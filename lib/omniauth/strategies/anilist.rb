@@ -18,11 +18,9 @@ module OmniAuth
 
       QUERY = AnilistApiWrapper::Client.parse <<-'GRAPHQL'
         {
-          User(name: "MichaelAPL"){
+          Viewer {
             id
             name
-            updatedAt
-            createdAt            
           }
         }          
       GRAPHQL
@@ -37,11 +35,9 @@ module OmniAuth
         full_host + callback_path
       end
       
-      #uid{ request.params['user_id'] }
-
       info do
         {
-          :name => "anilist",
+          :name => "anilist",          
         }
       end
 
@@ -51,10 +47,11 @@ module OmniAuth
         }
       end
 
-      def raw_info        
-        #result = AnilistApiWrapper::Client.query(QUERY)
-        @raw_info ||= {}
-        #@raw_info ||= result.to_h["data"]["User"].transform_keys(&:to_sym)
+      def raw_info
+        AnilistApiWrapper.bearer_token = access_token.token            
+        result = AnilistApiWrapper::Client.query(QUERY)
+        #@raw_info ||= {}
+        @raw_info ||= result.to_h["data"]["Viewer"].transform_keys(&:to_sym)
       end
     end
   end
