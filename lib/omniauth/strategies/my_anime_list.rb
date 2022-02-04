@@ -36,7 +36,6 @@ module OmniAuth
       extra do
         hash = {}
         hash['raw_info'] = raw_info
-        p hash
         hash
       end
 

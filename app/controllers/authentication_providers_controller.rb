@@ -4,9 +4,11 @@ class AuthenticationProvidersController < ApplicationController
   end
 
   def create
+    is_primary = current_user.authentication_providers.empty?
     auth_provider = AuthenticationProvider.new(provider_name: auth_hash.provider, uid: auth_hash.uid, 
                                               user_name: auth_hash.extra.raw_info.name, access_token: auth_hash.credentials.token,
-                                              refresh_token: auth_hash.credentials.refresh_token, expires_at: auth_hash.credentials.expires_at)
+                                              refresh_token: auth_hash.credentials.refresh_token, expires_at: auth_hash.credentials.expires_at,
+                                              is_primary: is_primary)
     auth_provider.user = current_user
 
     if auth_provider.save

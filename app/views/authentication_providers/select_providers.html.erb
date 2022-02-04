@@ -25,16 +25,16 @@
                 </div>
               </div>        
               <div class="content">
-                <%= button_to "Authorize MyAnimeList" , "/auth/my_anime_list/" , class: "button is-link is-outlined", method: :post, data: { turbo: "false" } %>
+                <%= button_to "Authorize MyAnimeList" , "/auth/my_anime_list/", class: "button is-link is-outlined", method: :post, data: { turbo: "false" } %>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-4">
+        <!-- <div class="column is-4">
           <div class="card has-text-centered">
             <div class="card-image">
               <figure class="image is-2by1">
-                <img src="https://play-lh.googleusercontent.com/BqG96npqowFaxpZYtSH7RowE0ECiFXm8Vd0aoxLcJhw-p4W9SMC4aqheQrCtpruMwNc" alt="Placeholder image">
+                <img src="https://mejoresappspara.com/wp-content/uploads/2020/08/KITSU.jpg.webp" alt="Placeholder image">
               </figure>
             </div>
             <div class="card-content">
@@ -44,11 +44,30 @@
                 </div>
               </div>
               <div class="content">
-                <%#= button_to "Log in" , "/auth/my_anime_list/" , method: :post, data: { turbo: 'false' } %>
-                <a class="button">Authorize Kitsu</a>
+                <%= button_to "Authorize Kitsu" , "/auth/kitsu/", class: "button is-outlined", method: :post, data: { turbo: 'false' } %>
               </div>
             </div>
           </div>          
+        </div> -->
+        <div class="column is-4">
+          <div class="card has-text-centered">
+            <div class="card-image">
+              <figure class="image is-2by1">
+                <img src="https://raw.githubusercontent.com/jellyfin/jellyfin-ux/master/plugins/SVG/jellyfin-plugin-anilist.svg?sanitize=true" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">AniList.co</p>
+                </div>
+              </div>
+              <div class="content">
+                <%= button_to "Authorize Anilist" , "/auth/anilist/" , class: "button is-info is-outlined" , method: :post, data: {
+                  turbo: 'false' } %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>      
     </div>
