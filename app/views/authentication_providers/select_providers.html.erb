@@ -1,15 +1,21 @@
 <section class="hero is-fullheight">
   <div class="hero-body">
     <div class="container has-text-centered">
-      <h1 class="title">
-        Authorize your primary provider 
-      </h1>
-      <h3 class="subtitle">
-        Your primary provider will be used as a base for syncing all of your lists (You can change it later).
-      </h3>
-      <h3 class="subtitle">
-        Grant us access to your anime catalog provider so we can sync your lists.
-      </h3>
+      <% if @user_providers.empty? %>
+        <h1 class="title">
+          Authorize your primary provider 
+        </h1>
+        <h3 class="subtitle">
+          Your primary provider will be used as a base for syncing all of your lists (You can change it later).
+        </h3>
+      <% else %>
+        <h1 class="title">
+          Choose and authorize a provider for syncing 
+        </h1>
+        <h3 class="subtitle">
+          Grant us access to your anime catalog provider so we can sync your lists.
+        </h3>
+      <% end %>               
       <div class="columns">
         <div class="column is-4 is-offset-2">
           <div class="card has-text-centered">
@@ -25,7 +31,16 @@
                 </div>
               </div>        
               <div class="content">
-                <%= button_to "Authorize MyAnimeList" , "/auth/my_anime_list/", class: "button is-link is-outlined", method: :post, data: { turbo: "false" } %>
+                <% if @user_providers.any? { |p| p[:provider_name] == "my_anime_list" } %>
+                  <span class="icon-text" style="color: green; padding-bottom: 17px;">
+                    <span class="icon">
+                      <i class="far fa-check-circle"></i>
+                    </span>
+                    <span>Already synced up</span>
+                  </span>                  
+                <% else %>
+                  <%= button_to "Authorize MyAnimeList" , "/auth/my_anime_list/", class: "button is-link is-outlined", method: :post, data: { turbo: "false" } %>
+                <% end %>                
               </div>
             </div>
           </div>
@@ -63,8 +78,16 @@
                 </div>
               </div>
               <div class="content">
-                <%= button_to "Authorize Anilist" , "/auth/anilist/" , class: "button is-info is-outlined" , method: :post, data: {
-                  turbo: 'false' } %>
+                <% if @user_providers.any? { |p| p[:provider_name] == "anilist" } %>
+                  <span class="icon-text" style="color: green; padding-bottom: 17px;">
+                    <span class="icon">
+                      <i class="far fa-check-circle"></i>
+                    </span>
+                    <span>Already synced up</span>
+                  </span>
+                <% else %>
+                  <%= button_to "Authorize Anilist" , "/auth/anilist/" , class: "button is-info is-outlined" , method: :post, data: { turbo: "false" } %>
+                <% end %>                  
               </div>
             </div>
           </div>

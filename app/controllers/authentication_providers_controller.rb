@@ -1,6 +1,6 @@
 class AuthenticationProvidersController < ApplicationController
   def select_providers
-    
+    @user_providers = current_user.authentication_providers
   end
 
   def create

@@ -6,6 +6,10 @@
 
 <br>
 
+<%= link_to "Sync providers", "/authentication_providers" %> 
+
+<br>
+
 <% if current_user %>
   <%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: { turbo: "false" } %> 
 <% else %>
