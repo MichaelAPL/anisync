@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  require "sidekiq/web" 
+  mount Sidekiq::Web => "/sidekiq"
+
   devise_for :users
 
   get "/authentication_providers", to: "authentication_providers#select_providers"

@@ -80,4 +80,7 @@ end
 
 gem "devise", "~> 4.8"
 gem "figaro"
-gem 'graphql-client'
+gem "graphql-client"
+gem "bulma-extensions-rails"
+gem "sidekiq"
+gem "ruby_mal_client", github: "MichaelAPL/ruby_mal_client"

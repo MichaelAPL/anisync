@@ -1,17 +1,127 @@
-<p><%= current_user.username %></p>
+<style>
+  :root {
+    --bg: #071e36;
+    --card-bg: #041221;
+  }
+
+  .anisync--navbar {
+    background: var(--bg);
+  }
+
+  input::placeholder {
+    color: antiquewhite;
+  }
+
+  .navbar {
+    background: var(--card-bg);
+  }
+
+  .navbar-item {
+    color: ghostwhite;
+  }  
+
+  .navbar-dropdown {
+    background: var(--card-bg);
+  }
+</style>
+
+<nav class="navbar anisync--navbar">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        <img src="https://cdn.emk.dev/templates/bulma-logo-light.png" alt="Logo">
+      </a>
+      <span class="navbar-burger burger" data-target="navbarMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </div>    
+    <div id="navbarMenu" class="navbar-menu">
+      <div class="navbar-end">        
+        <a class="navbar-item">
+          My List
+        </a>
+        <%= link_to "Sync Providers" , "/authentication_providers", class: "navbar-item" %>      
+        <a class="navbar-item">
+          Stats
+        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-item navbar-link"><%= current_user.username %></a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item">Dashboard</a>
+            <a class="navbar-item">Profile</a>
+            <a class="navbar-item">Settings</a>
+            <hr class="navbar-divider">
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class: "navbar-item"  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 
 <br>
 
-<p>Welcome to your dashboard!</p>
+<section class="container">
+  <div class="columns">
+    <div class="column is-10 is-offset-1">
+      <h3 class="title is-3">Your Dashboard</h3>
+      <div class="content is-medium">
+        <div class="box">
+          <h4 id="const" class="title is-4">Quick Update</h4>
+          <div>
+            watching: <%= current_user.list_entries.select { |entry| entry.status == "watching" }.size %>
+          </div>
+          <div>
+            completed: <%= current_user.list_entries.select { |entry| entry.status =="completed" }.size %>
+          </div>
+          <div>
+            on-hold: <%= current_user.list_entries.select { |entry| entry.status =="on_hold" }.size %>
+          </div>
+          <div>
+            dropped: <%= current_user.list_entries.select { |entry| entry.status =="dropped" }.size %>
+          </div>
+          <div>
+            plan to watch: <%= current_user.list_entries.select { |entry| entry.status == "plan_to_watch" }.size %>
+          </div>
+          <section class="section">
+            <div class="container">
+              <!-- Start Carousel -->
+              <div id="carousel-demo" class="carousel">
+                
+                <div class="item-1">
+                  <!-- Slide Content -->
+                </div>
+                <div class="item-2">
+                  <!-- Slide Content -->
+                </div>
+                <div class="item-3">
+                  <!-- Slide Content -->
+                </div>
+              </div>
+              <!-- End Carousel -->
+            </div>
+          </section>
+        </div>        
+      </div>
+    </div>
+  </div>
+</section>
 
-<br>
-
-<%= link_to "Sync providers", "/authentication_providers" %> 
-
-<br>
-
-<% if current_user %>
-  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: { turbo: "false" } %> 
-<% else %>
-  <% redirect_to root_path %>
-<% end %>
+<!-- <footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <div class="soc">
+        <a href="#"><i class="fa fa-github-alt fa-lg" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-youtube fa-lg" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a>
+      </div>
+      <p>
+        <strong>Bulma</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>.
+        The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. <br>
+      </p>
+    </div>
+  </div>
+</footer> -->

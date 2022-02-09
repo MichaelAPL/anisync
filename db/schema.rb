@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_02_192312) do
+ActiveRecord::Schema.define(version: 2022_02_08_071256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "animes", force: :cascade do |t|
+    t.integer "mal_id"
+    t.integer "anilist_id"
+    t.string "name"
+    t.text "other_names"
+    t.text "synopsis"
+    t.string "studios"
+    t.integer "aired_at_year"
+    t.string "emmision_status"
+    t.string "image_url"
+    t.text "streaming_urls"
+    t.text "mal_raw"
+    t.text "anilist_raw"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "mal_mean_score"
+    t.integer "anilist_mean_score"
+  end
 
   create_table "authentication_providers", force: :cascade do |t|
     t.string "provider_name"
@@ -27,6 +46,20 @@ ActiveRecord::Schema.define(version: 2022_02_02_192312) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "expires_at"
     t.index ["user_id"], name: "index_authentication_providers_on_user_id"
+  end
+
+  create_table "list_entries", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "anime_id"
+    t.string "status"
+    t.integer "episodes_seen"
+    t.integer "score"
+    t.date "started_at"
+    t.date "finished_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["anime_id"], name: "index_list_entries_on_anime_id"
+    t.index ["user_id"], name: "index_list_entries_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
