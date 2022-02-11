@@ -1,1 +1,1 @@
-Figaro.require_keys("mal_client_id", "mal_client_secret")
+Figaro.require_keys("mal_client_id", "mal_client_secret", "anilist_client_id", "anilist_client_secret")
