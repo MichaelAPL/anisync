@@ -23,6 +23,21 @@
   .navbar-dropdown {
     background: var(--card-bg);
   }
+
+  .carousel{
+    overflow:hidden;
+  }
+
+  .slider-pagination {
+    z-index: -1;
+  }
+
+  .slider-navigation-previous {
+    left: 10px;
+  }
+  .slider-navigation-next {
+    right: 10px;
+  }
 </style>
 
 <nav class="navbar anisync--navbar">
@@ -38,10 +53,8 @@
       </span>
     </div>    
     <div id="navbarMenu" class="navbar-menu">
-      <div class="navbar-end">        
-        <a class="navbar-item">
-          My List
-        </a>
+      <div class="navbar-end">                
+        <%= link_to "My List", "/list" , class: "navbar-item" %>
         <%= link_to "Sync Providers" , "/authentication_providers", class: "navbar-item" %>      
         <a class="navbar-item">
           Stats
@@ -70,39 +83,42 @@
       <div class="content is-medium">
         <div class="box">
           <h4 id="const" class="title is-4">Quick Update</h4>
-          <div>
-            watching: <%= current_user.list_entries.select { |entry| entry.status == "watching" }.size %>
-          </div>
-          <div>
-            completed: <%= current_user.list_entries.select { |entry| entry.status =="completed" }.size %>
-          </div>
-          <div>
-            on-hold: <%= current_user.list_entries.select { |entry| entry.status =="on_hold" }.size %>
-          </div>
-          <div>
-            dropped: <%= current_user.list_entries.select { |entry| entry.status =="dropped" }.size %>
-          </div>
-          <div>
-            plan to watch: <%= current_user.list_entries.select { |entry| entry.status == "plan_to_watch" }.size %>
-          </div>
-          <section class="section">
-            <div class="container">
-              <!-- Start Carousel -->
-              <div id="carousel-demo" class="carousel">
-                
-                <div class="item-1">
-                  <!-- Slide Content -->
+          <%# <div>
+            <button class="button is-primary" data-action="click->dashboard#syncList">Sync List</button>
+          </div> %>
+          <div class="column is-12">
+            <div class="carousel" data-controller="carousel">
+              <% current_user.anime_list.first[:watching].each_with_index do |entry, index| %> 
+                <div class=<%="item-#{index + 1}"%>>
+                  <div class="card">
+                    <div class="card-image">
+                      <figure class="image is-square">
+                        <img src=<%= entry.anime.image_url %>>
+                      </figure>
+                    </div>
+                    <div class="card-content">
+                      <div class="media">
+                        <div class="media-content">
+                          <p class="title is-5"><%= entry.anime.name.truncate(20, omission: '...') %></p>
+                          <p class="subtitle is-6"><%= entry.anime.aired_at_year %></p>
+                        </div>
+                      </div>                  
+                      <div class="content">
+                        <div class="columns">
+                          <div class="column is-8">
+                            <progress class="progress is-success" value=<%="#{entry.completion_percentage}"%> max="100"><%="#{entry.completion_percentage}%"%></progress>
+                          </div>
+                          <div class="column is-4">
+                            <p class="title is-6"><%= "#{entry.episodes_seen}/#{entry.anime.total_episodes > 0 ? entry.anime.total_episodes : "?"}" %></p>                            
+                          </div>                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="item-2">
-                  <!-- Slide Content -->
-                </div>
-                <div class="item-3">
-                  <!-- Slide Content -->
-                </div>
-              </div>
-              <!-- End Carousel -->
+              <% end %>                       
             </div>
-          </section>
+          </div>               
         </div>        
       </div>
     </div>

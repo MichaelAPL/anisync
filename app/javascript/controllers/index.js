@@ -3,8 +3,12 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
-import HelloController from "./hello_controller"
-import CarouselController from "./carousel"
 
-application.register("hello", HelloController)
+import CarouselController from "./carousel_controller.js"
 application.register("carousel", CarouselController)
+
+import DashboardController from "./dashboard_controller.js"
+application.register("dashboard", DashboardController)
+
+import HelloController from "./hello_controller.js"
+application.register("hello", HelloController)

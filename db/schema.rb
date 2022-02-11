@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_08_071256) do
+ActiveRecord::Schema.define(version: 2022_02_11_011558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 2022_02_08_071256) do
     t.integer "aired_at_year"
     t.string "emmision_status"
     t.string "image_url"
-    t.text "streaming_urls"
     t.text "mal_raw"
     t.text "anilist_raw"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "mal_mean_score"
-    t.integer "anilist_mean_score"
+    t.float "mal_mean_score"
+    t.float "anilist_mean_score"
+    t.integer "total_episodes"
   end
 
   create_table "authentication_providers", force: :cascade do |t|

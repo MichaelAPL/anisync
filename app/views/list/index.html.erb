@@ -1,0 +1,80 @@
+<section class="container">
+  <br>
+  <div class="columns">
+    <div class="column is-12">
+      <div class="control has-icons-left has-icons-right">
+        <input type="text" class="input is-large" placeholder="Search">
+        <span class="icon is-medium is-left">
+          <i class="fa fa-search"></i>
+        </span>
+        <span class="icon is-medium is-right">
+          <i class="fa fa-check"></i>
+        </span>
+      </div>
+    </div>    
+  </div>
+  <div class="columns">
+    <div class="column is-2">
+      <aside class="menu is-hidden-mobile">
+        <%# <p class="menu-label">Filter by</p> %>
+        <p class="menu-label">Summary</p>
+        <ul class="menu-list">
+          <li>
+            <a>All</a>
+            <ul>
+              <li><a>Watching (<%= current_user.list_entries.select { |entry| entry.status == "watching" }.size %>)</a></li>
+              <li><a>Completed (<%= current_user.list_entries.select { |entry| entry.status =="completed" }.size %>)</a></li>
+              <li><a>On-Hold (<%= current_user.list_entries.select { |entry| entry.status =="on_hold" }.size %>)</a></li>
+              <li><a>Dropped (<%= current_user.list_entries.select { |entry| entry.status =="dropped" }.size %>)</a></li>
+              <li><a>Plan to watch (<%= current_user.list_entries.select { |entry| entry.status == "plan_to_watch" }.size %>)</a></li>
+            </ul>
+          </li>
+        </ul>
+    </div>
+    <div class="column is-10">      
+      <p class="menu-label">This list was retrieved from: <%= @elements[:provider].parsed_name %></p>
+      <% @elements[:list].each do |item| %> 
+        <% status, list_entries = item.first %>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title"><%= status.to_s.humanize %></p>
+            <a href="#" class="card-header-icon" aria-label="more options">
+              <span class="icon">
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </a>
+          </header>
+          <div class="card-table">
+            <div class="content">
+              <table class="table is-hoverable">
+                <thead>
+                  <tr>
+                    <th><abbr title="Number">Number</abbr></th>
+                    <th><abbr title="Title">Title</abbr></th>
+                    <th><abbr title="Score">Score</abbr></th>
+                    <th><abbr title="Progress">Progress</abbr></th>
+                    <th><abbr title="Studios">Studios</abbr></th>
+                    <th><abbr title="Available At">Av. at</abbr></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% list_entries.each_with_index do |entry, index| %>
+                    <tr>
+                      <th><%= index + 1 %></th>
+                      <td><%= entry.anime.name %></td>
+                      <td><%= entry.score == 0 ? "-" : entry.score %></td>
+                      <td><%= "#{entry.episodes_seen} / #{entry.anime.total_episodes}" %></td>
+                      <td><%= entry.anime.studios %></td>
+                      <td>N/A</td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br> 
+      <% end %>
+    </div>
+  </div>
+</section>

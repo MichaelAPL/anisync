@@ -25,42 +25,47 @@ class SyncMalAnimeJob
 
     missing_anime_ids = anime_list_ids - db_anime_ids
 
+    # Add the missing animes into the DB so we can create the list entry
     if !missing_anime_ids.empty?
       missing_anime_ids.each do |id|
         anime_details = anime_client.find(id)
         anime_record = create_anime_db_record(anime_details)
-        anime_list_fields = animes.find { |anime| anime[:node][:id] == id }
-        create_list_entry_db_record(user_id, anime_record, anime_list_fields) unless anime_record.nil?
-      end
-    end        
+      end    
+    end
+
+    # Then, create the list entries
+    anime_list_ids.each do |id|
+      anime_record = Anime.where(mal_id: id).first
+      anime_list_fields = animes.find { |anime| anime[:node][:id] == id }
+      create_list_entry_db_record(user_id, anime_record, anime_list_fields)
+    end
   end 
   
-  def create_anime_db_record(anime_details)
+  def create_anime_db_record(anime_details)    
     anime_record = Anime.find_or_create_by(mal_id: anime_details[:id])
     #anime_record.mal_id = anime_details[:id]
     anime_record.name = anime_details[:title]
 
     other_names = ""
-    anime_details[:alternative_titles].each do |title|
-      other_names += "#{title},"
+    anime_details[:alternative_titles][:synonyms].each do |synonim|
+      other_names += "#{synonim},"
     end
     other_names += "#{anime_details[:alternative_titles][:en]},"
     other_names += "#{anime_details[:alternative_titles][:ja]}"
-    anime_record.other_names = other_names
+    anime_record.other_names = other_names    
 
+    studios = ""
+    anime_details[:studios].each {|studio| studios += "#{studio[:name]}, " }
+    anime_record.studios = studios
+    
     anime_record.synopsis = anime_details[:synopsis]
-    anime_record.studios = anime_details[:studios].join(", ")
     anime_record.aired_at_year = !anime_details[:start_season].nil? ? anime_details[:start_season][:year] : nil
     anime_record.emmision_status = anime_details[:status]
     anime_record.image_url = anime_details[:main_picture][:medium]
     anime_record.mal_mean_score = anime_details[:mean]
     anime_record.mal_raw = anime_details.to_json
-    
-    if anime_record.valid?
-      anime_record.save ? anime_record : nil
-    else
-      nil
-    end
+
+    anime_record.save
   end
 
   def create_list_entry_db_record(user_id, anime_record, anime_list_fields)

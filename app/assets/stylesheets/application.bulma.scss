@@ -36,6 +36,7 @@
 // @import "bulma/sass/layout/hero.sass";
 // @import "bulma/sass/layout/section.sass";
 
-@import 'bulma/bulma';
+@use 'bulma/bulma';
+@use 'bulma-carousel/dist/css/bulma-carousel.min.css';
+
 @import './index.scss';
-@import 'bulma-carousel/dist/css/bulma-carousel.min.css';
